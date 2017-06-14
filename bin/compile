@@ -70,8 +70,8 @@ fi
 
 $extract $CACHE_DIR/$KIBANA_PACKAGE
 
-echo "-----> Configuring ELASTICSEARCH_URL"
+echo "-----> Configuring ELASTICSEARCH_URLi $ELASTICSEARCH_URL"
 $configure $KIBANA_DIR/config/kibana.yml
-echo >> "elasticsearch.url:$ELASTICSEARCH_URL"  $KIBANA_DIR/config/kibana.yml
+
 echo "Exporting PATH" | indent
 echo 'export PATH="$PATH:'${KIBANA_DIR##*/}'/bin"' > $INIT_SCRIPT
