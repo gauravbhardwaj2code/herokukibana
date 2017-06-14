@@ -11,9 +11,9 @@ ENV_DIR=$3
 INIT_SCRIPT="$BUILD_DIR/.profile.d/kibana.sh"
 
 if [ -f "$ENV_DIR/ELASTICSEARCH_URL" ]; then
-  ELASTICSEARCH_URL="$(cat $ENV_DIR/ELASTICSEARCH_URL):443"
+  ELASTICSEARCH_URL="$(cat $ENV_DIR/ELASTICSEARCH_URL)"
 elif [ -f "$ENV_DIR/BONSAI_URL" ]; then
-  ELASTICSEARCH_URL="$(cat $ENV_DIR/BONSAI_URL):443"
+  ELASTICSEARCH_URL="$(cat $ENV_DIR/BONSAI_URL)"
 else
   ELASTICSEARCH_URL="http://localhost:9200"
 fi
@@ -71,7 +71,7 @@ fi
 $extract $CACHE_DIR/$KIBANA_PACKAGE
 
 echo "-----> Configuring ELASTICSEARCH_URLi $ELASTICSEARCH_URL"
-$configure $KIBANA_DIR/config/kibana.yml
+"elasticsearch.url:$ELASTICSEARCH_URL" >>  $KIBANA_DIR/config/kibana.yml
 
 echo "Exporting PATH" | indent
 echo 'export PATH="$PATH:'${KIBANA_DIR##*/}'/bin"' > $INIT_SCRIPT
